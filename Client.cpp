@@ -3,14 +3,20 @@
 //
 
 #include "Client.h"
+#include "SymbolTable.h"
+#include "Var.h"
 
-Client::Client(int portNumber):port(portNumber)
-{
+
+Client::Client(string ipn, int portNumber){
+    port = portNumber;
+    ip = ipn;
+
     //create socket
-    int client_socket = socket(AF_INET, SOCK_STREAM, 0);
+    client_socket = socket(AF_INET, SOCK_STREAM, 0);
     if (client_socket == -1) {
         //error
         std::cerr << "Could not create a socket"<<std::endl;
+        exit(2);
     }
 
     //We need to create a sockaddr obj to hold address of server
@@ -23,28 +29,41 @@ Client::Client(int portNumber):port(portNumber)
 
     // Requesting a connection with the server on local host with port 8081
     int is_connect = connect(client_socket, (struct sockaddr *)&address, sizeof(address));
-    if (is_connect == -1) {
-        std::cerr << "Could not connect to host server"<<std::endl;
-    } else {
-        std::cout<<"Client is now connected to server" <<std::endl;
+    while (is_connect == -1) {
+        std::cerr << "Could not connect to host server. Trying again!"<<std::endl;
+        is_connect = connect(client_socket, (struct sockaddr *)&address, sizeof(address));
     }
+    std::cout<<"Client is now connected to server" <<std::endl;
+}
+
+void Client::runClientThread() {
+    thread* clientThread = new thread(&Client::runClient,this);
+    clientThread->detach();
+}
+
+
+void Client::runClient() {
     while(true) {
         //if here we made a connection
-        char hello[] = "Hi from client";
-        string str1 = "rr";
         ////////////////////////////////////////////////////////////////////////////////////
         //HERE I RUN a loop ON THE MAP AND SEND THE VALUES TO THE SIMULATOR!!!
         //string commandString = "set " + symTable.getSim, symtable.getValue;‬;
-        string commandString = "set " + str1;
-        ////////////////////////////////////////////////////////////////////////////////////
-        const char* command = commandString.c_str();
-        int is_sent = send(client_socket , command , strlen(command) , 0 );
-        if (is_sent == -1) {
-            std::cout<<"Error sending message"<<std::endl;
-        } else {
-            std::cout<<"Hello message sent to server" <<std::endl;
+        SymbolTable* symbolTable = symbolTable->getInstance();
+        unordered_map<string, Var*> ::const_iterator iterator = symbolTable->get_variables_map().begin();
+        while(iterator != symbolTable->get_variables_map().end()) {
+            if(iterator->second->getSim() == "=") {
+                continue;
+            }
+            string commandString = "set " + iterator->second->getSim() + " " + to_string(iterator->second->getVal());
+
+            const char* command = commandString.c_str();
+            int is_sent = send(client_socket , command , strlen(command) , 0 );
+            if (is_sent == -1) {
+                std::cout<<"Error sending message"<<std::endl;
+            } else {
+                //std::cout<<"Hello message sent to server" <<std::endl;
+            }
         }
     }
-
     close(client_socket);
 }

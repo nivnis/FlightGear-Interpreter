@@ -3,7 +3,8 @@
 //
 
 #include "Server.h"
-
+#include "SymbolTable.h"
+#include "Var.h"
 //
 // Created by pikachu on 12/22/19.
 //
@@ -17,6 +18,7 @@ Server::Server(int portNumber):port(portNumber)
     if (socketfd == -1) {
         //error
         std::cerr << "Could not create a socket"<<std::endl;
+        exit(1);
     }
 
     //bind socket to IP address
@@ -31,37 +33,44 @@ Server::Server(int portNumber):port(portNumber)
     //the actual bind command
     if (bind(socketfd, (struct sockaddr *) &address, sizeof(address)) == -1) {
         std::cerr<<"Could not bind the socket to an IP"<<std::endl;
+        exit(1);
     }
 
     //making socket listen to the port
     if (listen(socketfd, 5) == -1) { //can also set to SOMAXCON (max connections)
         std::cerr<<"Error during listening command"<<std::endl;
+        exit(1);
     } else{
         std::cout<<"Server is now listening ..."<<std::endl;
     }
 
     // accepting a Client
-    int client_socket = accept(socketfd, (struct sockaddr *)&address,
+    client_socket = accept(socketfd, (struct sockaddr *)&address,
                                (socklen_t*)&address);
-
     if (client_socket == -1) {
         std::cerr<<"Error accepting Client"<<std::endl;
     }
-
     close(socketfd); //closing the listening socket
-    /////////////////////////////////////////////////////////////////////////////////////
-    //reading from Client
+}
+
+void Server::runServerThread() {
+    //open a thread on the heap and start updating the map
+    thread* serverThread = new thread(&Server::runServer,this);
+    serverThread->detach();
+}
+
+
+void Server::runServer() {
+//reading from Client
     char buffer[1024];
     bzero(buffer, 1024);
     string data, curr_data;
-    vector<float> varVector;
-
+    vector<float> valVector;
 
     while (true) {
         int valread = read(client_socket, buffer, 1024);
         data.append(buffer, valread);
         //while we didn't meet the '\n'
-
         while (!data.find('\n')) {
             valread = read(client_socket, buffer, 1024);
             data.append(buffer, valread);
@@ -69,9 +78,17 @@ Server::Server(int portNumber):port(portNumber)
         //curr_data is our float now
         curr_data = data.substr(0, data.find('\n'));
         data.erase(0, data.find('\n') + 1);
-        varVector = getValVector(curr_data);
+        valVector = getValVector(curr_data);
         //HERE I UPDATE THE VAR MAP BY SIM
-
+        SymbolTable* symbolTable = symbolTable->getInstance();
+        for (int i = 0; i < 36; i++) {
+            Var* var = symbolTable->getVar(simArr[i]);
+            if(var == nullptr)
+            {
+                continue;
+            }
+            var->setVal(valVector[i]);
+        }
     }
 }
 

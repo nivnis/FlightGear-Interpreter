@@ -10,17 +10,25 @@
 #include <netinet/in.h>
 #include <cstring>
 #include <vector>
+#include <thread>
 using namespace std;
 
 class Server {
 private:
     int port;
+    int client_socket;
     string simArr[36];
+
+    void makeSimArray();
+    static vector<float> getValVector(string s);
 public:
     Server(int portNumber);
-    void makeSimArray();
-    vector<float> getValVector(string s);
+    void runServerThread();
+    void runServer();
 };
+
+
+
 
 enum vars {
     airspeed = 0,
