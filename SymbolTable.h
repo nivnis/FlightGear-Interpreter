@@ -10,6 +10,8 @@
 #include <iostream>
 #include <string>
 #include <unordered_map>
+#include <cstdio>
+#include <queue>
 #include "Var.h"
 #include "DefineVarCommand.h"
 #include "SleepCommand.h"
@@ -27,6 +29,7 @@ private:
     unordered_map<string, Var *> sim_map; // sim, Var*
     unordered_map<string,Command*> command_map;
     mutex simMapMutex, varMapMutex;
+    queue<string> clientCommands;
 
 // Private constructor so that no objects can be created.
     SymbolTable();
@@ -35,10 +38,20 @@ public:
     /* Static access method. */
     static SymbolTable *getInstance();
 
-    void addVar(string name1, string sim1, string direction, double value1, bool answer);
+    void addVar(string name, string sim, string direction, double value);
     Var getVar(string name);
+    Var getVarBySim(const string &sim);
+    void setVarByName(const string &name, double value);
+    void setVarBySim(const string &sim, double value);
     unordered_map<string, Var *> get_variables_map();
     unordered_map<string, Var *> get_sim_map();
     unordered_map<string, Command *> get_command_map();
+
+    queue<string> * getClientCommands();
+
+
+private:
+    static string makeClientCommand(Var* var);
+
 };
 

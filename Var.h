@@ -21,8 +21,13 @@ public:
     Var(const Var &variable);
     Var(string name1, string direction1, string sim1, double val1);
     Var(string name1, double val1);
+    Var(double value);
     double setVal(double val1);
     double getVal();
     string getSim();
+
+    const string &getName() const;
+
+    const string &getDirection() const;
 //    ~Var()= default;
 };

@@ -68,6 +68,7 @@ void Server::runServer() {
     vector<float> valVector;
 
     while (true) {
+        int i = 0;
         int valread = read(client_socket, buffer, 1024);
         data.append(buffer, valread);
         //while we didn't meet the '\n'
@@ -80,14 +81,9 @@ void Server::runServer() {
         data.erase(0, data.find('\n') + 1);
         valVector = getValVector(curr_data);
         //HERE I UPDATE THE VAR MAP BY SIM
-        SymbolTable* symbolTable = symbolTable->getInstance();
-        for (int i = 0; i < 36; i++) {
-            Var* var = symbolTable->getVar(simArr[i]);
-            if(var == nullptr)
-            {
-                continue;
-            }
-            var->setVal(valVector[i]);
+        SymbolTable* symbolTable = SymbolTable::getInstance();
+        for (float value : valVector) {
+            symbolTable->setVarBySim(this->simArr[i%36],value);
         }
     }
 }

@@ -211,10 +211,11 @@ vector<vector<string>> lexer(string file_name){
                     i++;
                 }
                 string sec_string = with_out_var.substr(5,i-5);
+                string simName = sec_string.substr(1, sec_string.length()-2);
                 // push first 'sim'
                 vector_arr.push_back("sim");
                 // push second word
-                vector_arr.push_back(sec_string);
+                vector_arr.push_back(simName);
                 with_out_var.erase(0, pos + delimiter.length());
             }
         }

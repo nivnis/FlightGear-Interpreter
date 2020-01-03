@@ -33,7 +33,7 @@ int DefineVarCommand::execute(vector<vector<string>> arr, int index) {
             // no value yet. need to check what should I put here.
             value = 0;
             answer = false;
-            symbolTable->addVar(name,sim,direction,value,answer);
+            symbolTable->addVar(name, sim, direction, value);
         }
         //its regular var.
         else{
@@ -44,7 +44,7 @@ int DefineVarCommand::execute(vector<vector<string>> arr, int index) {
             e1 = i1->interpret(to_inter);
             value = e1->calculate();
             answer = false;
-            symbolTable->addVar(name,sim,direction,value,answer);
+            symbolTable->addVar(name, sim, direction, value);
         }
     } else {
 
@@ -57,7 +57,7 @@ int DefineVarCommand::execute(vector<vector<string>> arr, int index) {
         e1 = i1->interpret(to_inter);
         value = e1->calculate();
         answer = true;
-        symbolTable->addVar(name,sim,direction,value,answer);
+        symbolTable->addVar(name, sim, direction, value);
 
     }
 

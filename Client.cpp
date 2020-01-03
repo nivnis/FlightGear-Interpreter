@@ -7,7 +7,7 @@
 #include "Var.h"
 
 
-Client::Client(string ipn, int portNumber){
+Client::Client(string ipn, int portNumber) {
     port = portNumber;
     ip = ipn;
 
@@ -15,7 +15,7 @@ Client::Client(string ipn, int portNumber){
     client_socket = socket(AF_INET, SOCK_STREAM, 0);
     if (client_socket == -1) {
         //error
-        std::cerr << "Could not create a socket"<<std::endl;
+        std::cerr << "Could not create a socket" << std::endl;
         exit(2);
     }
 
@@ -28,42 +28,35 @@ Client::Client(string ipn, int portNumber){
     // to a number that the network understands.
 
     // Requesting a connection with the server on local host with port 8081
-    int is_connect = connect(client_socket, (struct sockaddr *)&address, sizeof(address));
+    int is_connect = connect(client_socket, (struct sockaddr *) &address, sizeof(address));
     while (is_connect == -1) {
-        std::cerr << "Could not connect to host server. Trying again!"<<std::endl;
-        is_connect = connect(client_socket, (struct sockaddr *)&address, sizeof(address));
+        std::cerr << "Could not connect to host server. Trying again!" << std::endl;
+        is_connect = connect(client_socket, (struct sockaddr *) &address, sizeof(address));
     }
-    std::cout<<"Client is now connected to server" <<std::endl;
+    std::cout << "Client is now connected to server" << std::endl;
 }
 
 void Client::runClientThread() {
-    thread* clientThread = new thread(&Client::runClient,this);
+    thread *clientThread = new thread(&Client::runClient, this);
     clientThread->detach();
 }
 
 
 void Client::runClient() {
-    while(true) {
+    while (true) {
         //if here we made a connection
         ////////////////////////////////////////////////////////////////////////////////////
         //HERE I RUN a loop ON THE MAP AND SEND THE VALUES TO THE SIMULATOR!!!
         //string commandString = "set " + symTable.getSim, symtable.getValue;‬;
-        SymbolTable* symbolTable = symbolTable->getInstance();
-        unordered_map<string, Var*> ::const_iterator iterator = symbolTable->get_variables_map().begin();
-        while(iterator != symbolTable->get_variables_map().end()) {
-            if(iterator->second->getSim() == "=") {
-                continue;
-            }
-            string commandString = "set ";
-            commandString.append(iterator->second->getSim()+ " " + to_string(iterator->second->getVal()));
-
-            const char* command = commandString.c_str();
-            int is_sent = send(client_socket , command , strlen(command) , 0 );
+        queue<string>* clientCommands = SymbolTable::getInstance()->getClientCommands();
+        while (!clientCommands->empty()) {
+            string command = clientCommands->front().c_str();
+            clientCommands->pop();
+            int is_sent = send(client_socket, command.c_str(),command.size() , 0);
             if (is_sent == -1) {
-                std::cout<<"Error sending message"<<std::endl;
-            } else {
-                //std::cout<<"Hello message sent to server" <<std::endl;
+                std::cout << "Error sending message" << std::endl;
             }
+            cout<<command.substr(0,command.find('\r')) + " sent to server"<<endl;
         }
     }
     close(client_socket);
