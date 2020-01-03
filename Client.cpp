@@ -54,7 +54,8 @@ void Client::runClient() {
             if(iterator->second->getSim() == "=") {
                 continue;
             }
-            string commandString = "set " + iterator->second->getSim() + " " + to_string(iterator->second->getVal());
+            string commandString = "set ";
+            commandString.append(iterator->second->getSim()+ " " + to_string(iterator->second->getVal()));
 
             const char* command = commandString.c_str();
             int is_sent = send(client_socket , command , strlen(command) , 0 );

@@ -17,6 +17,8 @@ private:
     string sim;
     double val;
 public:
+
+    Var(const Var &variable);
     Var(string name1, string direction1, string sim1, double val1);
     Var(string name1, double val1);
     double setVal(double val1);

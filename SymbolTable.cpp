@@ -57,24 +57,24 @@ void SymbolTable::addVar(string name, string sim, string direction, double value
        var->setVal(value);
     }
 }
-Var* SymbolTable::getVar(string name){
+Var SymbolTable::getVar(string name){
     simMapMutex.lock();
     unordered_map<string, Var *>::const_iterator got1 = variables_map.find (name);
     if ( got1 != variables_map.end() ) {
         simMapMutex.unlock();
-        return got1->second;
+        return *got1->second;
     } else {
         simMapMutex.unlock();
     }
     varMapMutex.lock();
-    unordered_map<string, Var *>::const_iterator got2 = sim_map.find (name);
+    unordered_map<string, Var*>::const_iterator got2 = sim_map.find (name);
     if ( got2 != sim_map.end() ) {
         varMapMutex.unlock();
-        return got2->second;
+        return *got2->second;
     } else {
         varMapMutex.unlock();
     }
-    return nullptr;
+    return NULL;
 }
 unordered_map<string, Var *> SymbolTable::get_variables_map(){
     return this->variables_map;
