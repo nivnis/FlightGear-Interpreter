@@ -45,7 +45,7 @@ public:
     void setVarBySim(const string &sim, double value);
     unordered_map<string, Var *> get_variables_map();
     unordered_map<string, Var *> get_sim_map();
-    unordered_map<string, Command *> get_command_map();
+//    unordered_map<string, Command *> get_command_map();
 
     queue<string> * getClientCommands();
 

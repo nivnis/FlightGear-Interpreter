@@ -104,9 +104,9 @@ unordered_map<string, Var *> SymbolTable::get_variables_map(){
 unordered_map<string, Var *> SymbolTable::get_sim_map(){
     return this->sim_map;
 }
-unordered_map<string, Command *> SymbolTable::get_command_map(){
-    return this->command_map;
-}
+//unordered_map<string, Command *> SymbolTable::get_command_map(){
+//    return this->command_map;
+//}
 
 queue<string> * SymbolTable::getClientCommands() {
     return &this->clientCommands;
