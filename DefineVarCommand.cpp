@@ -57,7 +57,7 @@ int DefineVarCommand::execute(vector<vector<string>> arr, int index) {
         e1 = i1->interpret(to_inter);
         value = e1->calculate();
         answer = true;
-        symbolTable->addVar(name, sim, direction, value);
+        symbolTable->setVarByName(name,value);
 
     }
 

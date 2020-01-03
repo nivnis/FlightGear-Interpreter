@@ -110,7 +110,12 @@ vector<vector<string>> lexer(string file_name){
             }
             vector_arr.push_back("connectControlClient");
             for(int k = 0; k < tokens.size(); k++){
-                vector_arr.push_back(tokens[k]);
+                if (string::npos != tokens[k].find('\"')){
+                    string token = tokens[k].substr(1,tokens[k].size()-2);
+                    vector_arr.push_back(token);
+                } else {
+                    vector_arr.push_back(tokens[k]);
+                }
             }
         }
 

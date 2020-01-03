@@ -84,6 +84,7 @@ void Server::runServer() {
         SymbolTable* symbolTable = SymbolTable::getInstance();
         for (float value : valVector) {
             symbolTable->setVarBySim(this->simArr[i%36],value);
+            i++;
         }
     }
 }
