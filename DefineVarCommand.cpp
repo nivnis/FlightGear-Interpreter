@@ -61,7 +61,6 @@ int DefineVarCommand::execute(vector<vector<string>> arr, int index) {
 
     }
 
-
     return 1;
 }
 

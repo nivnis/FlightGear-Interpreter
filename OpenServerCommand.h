@@ -6,7 +6,7 @@
 #define UNTITLED_OPENSERVERCOMMAND_H
 
 #endif //UNTITLED_OPENSERVERCOMMAND_H
-#pragma one
+#pragma once
 #include <vector>
 #include <iostream>
 #include <string>

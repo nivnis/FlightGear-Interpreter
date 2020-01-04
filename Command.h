@@ -8,7 +8,7 @@
 
 #endif //UNTITLED_COMMAND_H
 using namespace std;
-#pragma one
+#pragma once
 #include <iostream>
 #include <string>
 #include <vector>

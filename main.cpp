@@ -22,16 +22,17 @@
 #include "Client.h"
 #include "OpenServerCommand.h"
 #include "ConnectCommand.h"
+#include "Parser.h"
 
 
 using namespace std;
 vector<vector<string>> lexer(string file_name);
 string removeSpaces(string input);
-void parser(vector<vector<string>> arr);
 int main() {
     vector<vector<string>> arr = lexer("fly.txt");
-    parser(arr);
-
+    Parser* parser = new Parser();
+    parser->parse(arr);
+    cout<<"done in main"<<endl;
 //    for (int i = 0; i < arr.size(); i++) {
 //        for (int j = 0; j < arr[i].size(); j++)
 //            cout << arr[i][j] << " ";
@@ -172,8 +173,8 @@ vector<vector<string>> lexer(string file_name){
                 //removing white spaces from each token and push it to the vector.
                 string s = "";
                 for (int k = 0; k < tokens.size(); k++) {
-                std::string::iterator end_pos = std::remove(tokens[k].begin(), tokens[k].end(), ' ');
-                tokens[k].erase(end_pos, tokens[k].end());
+                    std::string::iterator end_pos = std::remove(tokens[k].begin(), tokens[k].end(), ' ');
+                    tokens[k].erase(end_pos, tokens[k].end());
 //                    s.append(tokens[k]);
                     vector_arr.push_back(tokens[k]);
                 }
@@ -270,36 +271,6 @@ vector<vector<string>> lexer(string file_name){
     }
     file.close();
     return main_vector_arr;
-}
-
-void parser(vector<vector<string>> arr){
-    SymbolTable* symbol_table = symbol_table->getInstance();
-    unordered_map<string,Command*> command_map;
-    OpenServerCommand* openData = new OpenServerCommand();
-    ConnectCommand* connectCommand = new ConnectCommand();
-    DefineVarCommand* Var = new DefineVarCommand();
-    SleepCommand* sleep = new SleepCommand();
-    PrintCommand* print = new PrintCommand();
-    WhileCommand* whilee = new WhileCommand();
-    IfCommand* iff = new IfCommand();
-    command_map["openDataServer"] = openData;
-    command_map["connectControlClient"] = connectCommand;
-    command_map["Setvar"] = Var;
-    command_map["var"] = Var;
-    command_map["Sleep"] = sleep;
-    command_map["Print"] = print;
-    command_map["while"] = whilee;
-    command_map["if"] = iff;
-
-    int index = 0;
-    while( index < arr.size()){
-        unordered_map<string,Command*>::const_iterator got = command_map.find(arr[index][0]);
-        Command* c = got->second;
-        index += c->execute(arr,index);
-    }
-
-
-
 }
 
 string removeSpaces(string input)

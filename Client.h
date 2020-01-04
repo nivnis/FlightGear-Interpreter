@@ -1,7 +1,7 @@
 //
 // Created by pikachu on 12/23/19.
 //
-
+#pragma once
 #ifndef PORJECT1_CLIENT_H
 #define PORJECT1_CLIENT_H
 #include <sys/socket.h>

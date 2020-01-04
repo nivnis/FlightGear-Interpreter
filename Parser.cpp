@@ -26,10 +26,11 @@ Parser::Parser() {
 }
 
 
-void Parser::parse(vector<vector<string>> arr, int index) {
+void Parser::parse(vector<vector<string>> arr) {
+    int index = 0;
     while (index < arr.size()) {
         Command* c = command_map.find(arr[index][0])->second;
         index += c->execute(arr, index);
     }
-
+    //cout<<"doneeee"<<endl;
 }

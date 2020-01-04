@@ -52,6 +52,10 @@ void Client::runClient() {
         while (!clientCommands->empty()) {
             string command = clientCommands->front().c_str();
             clientCommands->pop();
+            //debug
+            //string debug = "client: ";
+            //cout<< debug + command.c_str()<< std::endl;
+            //
             int is_sent = send(client_socket, command.c_str(),command.size() , 0);
             if (is_sent == -1) {
                 std::cout << "Error sending message" << std::endl;

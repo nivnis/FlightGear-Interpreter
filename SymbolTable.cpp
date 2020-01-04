@@ -64,7 +64,7 @@ void SymbolTable::setVarByName(const string &name, double value) {
 
 string SymbolTable::makeClientCommand(Var *var) {
     string commandString = "set ";
-    commandString.append(var->getSim() + " " + to_string(var->getVal()) + " \r\n");
+    commandString.append(var->getSim() + " " + to_string(var->getVal()) + "\r\n");
     return commandString;
 }
 

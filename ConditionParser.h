@@ -6,7 +6,7 @@
 #define UNTITLED_CONDITIONPARSER_H
 
 #endif //UNTITLED_CONDITIONPARSER_H
-#pragma one
+#pragma once
 #include <iostream>
 #include <string>
 #include "Command.h"

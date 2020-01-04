@@ -6,7 +6,7 @@
 #define PORJECT1_PARSER_H
 
 #endif //PORJECT1_PARSER_H
-#pragma one
+#pragma once
 #include <iostream>
 #include <string>
 #include <cstring>
@@ -42,5 +42,5 @@ private:
 
 public:
     Parser();
-    void parse (vector<vector<string>> arr, int index);
+    void parse (vector<vector<string>> arr);
 };

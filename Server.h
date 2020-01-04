@@ -11,6 +11,7 @@
 #include <cstring>
 #include <vector>
 #include <thread>
+#pragma once
 using namespace std;
 
 class Server {
