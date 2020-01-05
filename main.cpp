@@ -32,34 +32,6 @@ int main() {
     vector<vector<string>> arr = lexer("fly.txt");
     Parser* parser = new Parser();
     parser->parse(arr);
-//    cout<<"done in main"<<endl;
-//    for (int i = 0; i < arr.size(); i++) {
-//        for (int j = 0; j < arr[i].size(); j++)
-//            cout << arr[i][j] << " ";
-//        cout << endl;
-//    }
-
-//    vector<vector<string>> arr;
-//    vector<string> small_arr;
-//    vector<string> small_arr1;
-//    vector<string> small_arr2;
-//    vector<string> small_arr3;
-//    vector<string> small_arr4;
-//    small_arr.push_back("while");
-//    small_arr.push_back("3+5>10");
-//    arr.push_back(small_arr);
-//    small_arr1.push_back("bla");
-//    arr.push_back(small_arr1);
-//    small_arr2.push_back("bla");
-//    arr.push_back(small_arr2);
-//    small_arr3.push_back("bla");
-//    arr.push_back(small_arr3);
-//    small_arr4.push_back("}");
-//    arr.push_back(small_arr4);
-//    Command* whileCommand = new WhileCommand();
-//    int answer = whileCommand->execute(arr, 0);
-//    std::cout << answer << std::endl;
-
 }
 
 vector<vector<string>> lexer(string file_name){

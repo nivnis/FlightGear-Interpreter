@@ -1,5 +1,5 @@
 //
-// Created by yuvallevy on 20/12/2019..
+// Created by yuvallevy on 20/12/2019.
 //
 
 #ifndef UNTITLED_IFCOMMAND_H
@@ -10,14 +10,13 @@
 #include <vector>
 #include <iostream>
 #include <string>
-#include "ConditionParser.h"
-
+#include "Command.h"
 using namespace std;
 
-class IfCommand : public ConditionParser {
+class IfCommand : public Command {
 public:
-    void run_condition(vector<vector<string>> vector_command,vector<vector<string>> arr, int index);
+    int execute(vector<vector<string>> arr, int index);
+    bool check_condition(vector<vector<string>> arr, int index);
     IfCommand();
-//    ~IfCommand()= default;
-
+//    ~PrintCommand()= default;
 };

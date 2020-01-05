@@ -86,6 +86,7 @@ void Server::runServer() {
             symbolTable->setVarBySim(this->simArr[i%36],value);
             i++;
         }
+
     }
 }
 

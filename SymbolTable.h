@@ -43,6 +43,7 @@ public:
     Var getVarBySim(const string &sim);
     void setVarByName(const string &name, double value);
     void setVarBySim(const string &sim, double value);
+
     unordered_map<string, Var *> get_variables_map();
     unordered_map<string, Var *> get_sim_map();
 //    unordered_map<string, Command *> get_command_map();

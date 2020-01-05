@@ -4,7 +4,6 @@
 #pragma once
 #ifndef PORJECT1_CLIENT_H
 #define PORJECT1_CLIENT_H
-#pragma once
 #include <sys/socket.h>
 #include <string>
 #include <cstring>
@@ -14,20 +13,20 @@
 #include <arpa/inet.h>
 #include <thread>
 #include <unordered_map>
-
 using namespace std;
-
-#define PORT 5402
-
 class Client {
 private:
+    //members
     int port;
     string ip;
     int client_socket;
 
 public:
+    //client constructor by ip and port
     Client(string ipn, int portNumber);
+    //makes a new thread that will run on the runClient function
     void runClientThread();
+    //takes a queue of commands from the SymbolTable class and sends the commands to the simulator
     void runClient();
 };
 
