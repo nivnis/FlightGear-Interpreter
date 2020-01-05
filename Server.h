@@ -19,17 +19,17 @@ private:
     int port;
     int client_socket;
     string simArr[36];
-
+    //makes an array of sims by xml order
     void makeSimArray();
+    //makes a vector of values by xml order
     static vector<float> getValVector(string s);
 public:
     Server(int portNumber);
+    //opens a thread that runs on runServer() function
     void runServerThread();
+    //gets data from the simulator to the server
     void runServer();
 };
-
-
-
 
 enum vars {
     airspeed = 0,
@@ -69,6 +69,5 @@ enum vars {
     master_alt,
     engine_rpm
 };
-
 
 #endif //PORJECT1_SERVER_H

@@ -5,10 +5,6 @@
 #include "Server.h"
 #include "SymbolTable.h"
 #include "Var.h"
-//
-// Created by pikachu on 12/22/19.
-//
-#include "Server.h"
 
 Server::Server(int portNumber):port(portNumber)
 {
@@ -61,7 +57,7 @@ void Server::runServerThread() {
 
 
 void Server::runServer() {
-//reading from Client
+    //reading from Client
     char buffer[1024];
     bzero(buffer, 1024);
     string data, curr_data;
@@ -86,7 +82,6 @@ void Server::runServer() {
             symbolTable->setVarBySim(this->simArr[i%36],value);
             i++;
         }
-
     }
 }
 
@@ -97,11 +92,9 @@ vector<float> Server::getValVector(string s) {
     vector<float> vector;
     while ((pos = s.find(delimiter)) != std::string::npos) {
         token = s.substr(0, pos);
-        //std::cout << token << std::endl;
         vector.push_back(stof(token));
         s.erase(0, pos + 1);
     }
-    //std::cout << s << std::endl;
     vector.push_back(stof(s));
     return vector;
 }

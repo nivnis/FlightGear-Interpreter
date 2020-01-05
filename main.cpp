@@ -8,9 +8,18 @@
 
 
 using namespace std;
-int main() {
+int main(int argc, char *argv[]) {
+    string fileName;
+    //if a file name is passed in the arguments
+    if(argc > 1) {
+        fileName = argv[1];
+    }
+    //if there are no arguments - use the default file
+    else{
+        fileName = "fly.txt";
+    }
     Lexer* lexer = new Lexer();
-    vector<vector<string>> arr = lexer->do_lexer("fly.txt");
+    vector<vector<string>> arr = lexer->do_lexer(fileName);
     Parser* parser = new Parser();
     parser->parse(arr);
 }
