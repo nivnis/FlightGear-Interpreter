@@ -10,13 +10,14 @@
 #include <vector>
 #include <iostream>
 #include <string>
-#include "Command.h"
+#include "ConditionParser.h"
+
 using namespace std;
 
-class IfCommand : public Command {
+class IfCommand : public ConditionParser {
 public:
-    int execute(vector<vector<string>> arr, int index);
-
+    void run_condition(vector<vector<string>> vector_command,vector<vector<string>> arr, int index);
     IfCommand();
-//    ~PrintCommand()= default;
+//    ~IfCommand()= default;
+
 };

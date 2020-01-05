@@ -4,6 +4,7 @@
 #pragma once
 #ifndef PORJECT1_CLIENT_H
 #define PORJECT1_CLIENT_H
+#pragma once
 #include <sys/socket.h>
 #include <string>
 #include <cstring>

@@ -4,6 +4,7 @@
 
 #ifndef PORJECT1_SERVER_H
 #define PORJECT1_SERVER_H
+#pragma once
 #include <sys/socket.h>
 #include <iostream>
 #include <unistd.h>
