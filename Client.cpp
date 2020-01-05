@@ -33,7 +33,7 @@ Client::Client(string ipn, int portNumber) {
         std::cerr << "Could not connect to host server. Trying again!" << std::endl;
         is_connect = connect(client_socket, (struct sockaddr *) &address, sizeof(address));
     }
-    std::cout << "Client is now connected to server" << std::endl;
+    //std::cout << "Client is now connected to server" << std::endl;
 }
 
 void Client::runClientThread() {
@@ -60,7 +60,7 @@ void Client::runClient() {
             if (is_sent == -1) {
                 std::cout << "Error sending message" << std::endl;
             }
-            cout<<command.substr(0,command.find('\r')) + " sent to server"<<endl;
+            //cout<<command.substr(0,command.find('\r')) + " sent to server"<<endl;
         }
     }
     close(client_socket);

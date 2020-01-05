@@ -32,7 +32,7 @@ int main() {
     vector<vector<string>> arr = lexer("fly.txt");
     Parser* parser = new Parser();
     parser->parse(arr);
-    cout<<"done in main"<<endl;
+//    cout<<"done in main"<<endl;
 //    for (int i = 0; i < arr.size(); i++) {
 //        for (int j = 0; j < arr[i].size(); j++)
 //            cout << arr[i][j] << " ";

@@ -20,13 +20,19 @@ int DefineVarCommand::execute(vector<vector<string>> arr, int index) {
     string name, sim, direction;
     string to_inter;
     double value;
+    bool is_sim_var=false;
     bool answer;
     // its creating a new var with arrow or equal.
     if (vector[0] == "var") {
         //check if its var sim or regular var.
-        size_t found = vector[3].find("sim");
-        //its sim var
-        if ( found != string::npos){
+        for(auto string_in_vector: vector){
+            if(string_in_vector == "sim"){
+                is_sim_var = true;
+            }
+        }
+//        size_t found = vector[3].find("sim");
+//        //its sim var
+        if (is_sim_var){
             name = vector[1];
             sim = vector[4];
             direction = vector[2];
