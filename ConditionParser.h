@@ -1,5 +1,5 @@
 //
-// Created by yuvallevy on 20/12/2019.
+// Created by yuvallevy on 20/12/2019..
 //
 
 #ifndef UNTITLED_CONDITIONPARSER_H
