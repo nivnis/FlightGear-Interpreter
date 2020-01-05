@@ -54,11 +54,12 @@ void Client::runClient() {
         while (!clientCommands->empty()) {
             string command = clientCommands->front().c_str();
             clientCommands->pop();
-            //send the command to the simulator
             int is_sent = send(client_socket, command.c_str(),command.size() , 0);
             if (is_sent == -1) {
                 std::cout << "Error sending message" << std::endl;
             }
         }
     }
+    //the client thread keeps running until the main ends.
+
 }
