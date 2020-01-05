@@ -21,7 +21,6 @@ int DefineVarCommand::execute(vector<vector<string>> arr, int index) {
     string to_inter;
     double value;
     bool is_sim_var=false;
-    bool answer;
     // its creating a new var with arrow or equal.
     if (vector[0] == "var") {
         //check if its var sim or regular var.
@@ -38,7 +37,6 @@ int DefineVarCommand::execute(vector<vector<string>> arr, int index) {
             direction = vector[2];
             // no value yet. need to check what should I put here.
             value = 0;
-            answer = false;
             symbolTable->addVar(name, sim, direction, value);
         }
         //its regular var.
@@ -49,11 +47,9 @@ int DefineVarCommand::execute(vector<vector<string>> arr, int index) {
             to_inter = vector[2];
             e1 = i1->interpret(to_inter);
             value = e1->calculate();
-            answer = false;
             symbolTable->addVar(name, sim, direction, value);
         }
     } else {
-
         // its changing the value of a var.
         // Set var
         to_inter = vector[2];
@@ -62,14 +58,12 @@ int DefineVarCommand::execute(vector<vector<string>> arr, int index) {
         direction = "";
         e1 = i1->interpret(to_inter);
         value = e1->calculate();
-        answer = true;
         symbolTable->setVarByName(name,value);
 
     }
-
     return 1;
 }
-
+// constructor
 DefineVarCommand::DefineVarCommand() : Command() {
 
 }

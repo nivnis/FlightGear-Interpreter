@@ -14,8 +14,9 @@ using namespace std;
 #include <vector>
 #include "ex1.h"
 using namespace std;
-
+// command abstract class
 class Command {
 public:
     virtual int execute(vector<vector<string>> arr, int index) = 0;
+//    virtual ~Command() = default;
 };

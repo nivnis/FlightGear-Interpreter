@@ -14,16 +14,18 @@ WhileCommand:: WhileCommand() : Command() {
 }
 
 int WhileCommand:: execute(vector<vector<string>> arr, int index){
+    // creating vector with all the commands in the scope of the condition.
     vector<vector<string>> vector_commands;
     Parser* parser = new Parser();
 
     int i = index+1;
-
+    // checking how many indexes I need to jump to the next command in the Parser.
     while (arr[i][0] != "}"){
         vector_commands.push_back(arr[i]);
         i++;
     }
     i++;
+    // Parserer all the commands in the vector commands until condition is false
     while(check_condition(arr,index)){
         parser->parse(vector_commands);
     }
@@ -37,6 +39,7 @@ bool WhileCommand::check_condition(vector<vector<string>> arr, int index){
     Expression* e2= nullptr;
     size_t found;
     bool condition = false;
+    //checking what is the condition sign, calculate both sides and change condition to true or not
     if ((found = full_exp.find(">=")) != string::npos){
         left_exp = full_exp.substr(0, found);
         right_exp = full_exp.substr(found+2, arr[index][1].length()-(found + 2));
@@ -46,6 +49,7 @@ bool WhileCommand::check_condition(vector<vector<string>> arr, int index){
             condition=true;
         }
     }
+    //checking what is the condition sign, calculate both sides and change condition to true or not
     else if ((found = full_exp.find("<=")) != string::npos){
         left_exp = full_exp.substr(0, found);
         right_exp = full_exp.substr(found+2, arr[index][1].length()-(found + 2));
@@ -55,6 +59,7 @@ bool WhileCommand::check_condition(vector<vector<string>> arr, int index){
             condition=true;
         }
     }
+    //checking what is the condition sign, calculate both sides and change condition to true or not
     else if ((found = full_exp.find(">")) != string::npos){
         left_exp = full_exp.substr(0, found);
         right_exp = full_exp.substr(found+1, arr[index][1].length()-(found + 1));
@@ -64,6 +69,7 @@ bool WhileCommand::check_condition(vector<vector<string>> arr, int index){
             condition=true;
         }
     }
+    //checking what is the condition sign, calculate both sides and change condition to true or not
     else if ((found = full_exp.find("<")) != string::npos){
         left_exp = full_exp.substr(0, found);
         right_exp = full_exp.substr(found+1, arr[index][1].length()-(found + 1));
@@ -82,6 +88,7 @@ bool WhileCommand::check_condition(vector<vector<string>> arr, int index){
             condition=true;
         }
     }
+    //checking what is the condition sign, calculate both sides and change condition to true or not
     else if ((found = full_exp.find("!=")) != string::npos){
         left_exp = full_exp.substr(0, found);
         right_exp = full_exp.substr(found+1, arr[index][1].length()-(found + 1));

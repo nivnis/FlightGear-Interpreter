@@ -22,4 +22,4 @@ public:
 
     DefineVarCommand();
 //    ~DefineVarCommand()= default;
-};;
+};

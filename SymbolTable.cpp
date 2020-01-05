@@ -32,13 +32,14 @@ SymbolTable::SymbolTable() {
     command_map["if"] = iff;
 }
 
+// get the instance of the symboltable - singelton.
 SymbolTable *SymbolTable::getInstance() {
     if (instance == 0) {
         instance = new SymbolTable();
     }
     return instance;
 }
-
+// func that getting the var members and creates a new Var
 void SymbolTable::addVar(string name, string sim, string direction, double value) {
     SymbolTable* symbolTable = symbolTable->getInstance();
     //adding new var with or without sim
@@ -50,7 +51,7 @@ void SymbolTable::addVar(string name, string sim, string direction, double value
         symbolTable->variables_map[name] = var;
         varMapMutex.unlock();
 }
-
+// func that gets a new value for a Var and sets it using name of the Var
 void SymbolTable::setVarByName(const string &name, double value) {
     varMapMutex.lock();
     if (this->variables_map.find(name) != this->variables_map.cend()){
@@ -61,13 +62,13 @@ void SymbolTable::setVarByName(const string &name, double value) {
     }
     varMapMutex.unlock();
 }
-
+// func that create the "Set" command for the client.
 string SymbolTable::makeClientCommand(Var *var) {
     string commandString = "set ";
     commandString.append(var->getSim() + " " + to_string(var->getVal()) + "\r\n");
     return commandString;
 }
-
+// func that gets a new value for a Var and sets it using name of the sim
 void SymbolTable::setVarBySim(const string &sim, double value) {
     simMapMutex.lock();
     if (this->sim_map.find(sim) != this->sim_map.cend()){
@@ -75,7 +76,7 @@ void SymbolTable::setVarBySim(const string &sim, double value) {
     }
     simMapMutex.unlock();
 }
-
+// func that get a string which is the name of the var or the sim and go over the maps and return the Var.
 Var SymbolTable::getVar(string name){
     simMapMutex.lock();
     unordered_map<string, Var *>::const_iterator got1 = variables_map.find (name);
@@ -86,6 +87,7 @@ Var SymbolTable::getVar(string name){
     simMapMutex.unlock();
     return NULL;
 }
+// func that get a string which is the the sim and go over the map and return the Var.
 
 Var SymbolTable::getVarBySim(const string &sim) {
     simMapMutex.lock();
@@ -97,16 +99,15 @@ Var SymbolTable::getVarBySim(const string &sim) {
     simMapMutex.unlock();
     return NULL;
 }
-
+// return the var map from name to Var*.
 unordered_map<string, Var *> SymbolTable::get_variables_map(){
     return this->variables_map;
 }
+// return the var map from sim to Var*.
 unordered_map<string, Var *> SymbolTable::get_sim_map(){
     return this->sim_map;
 }
-//unordered_map<string, Command *> SymbolTable::get_command_map(){
-//    return this->command_map;
-//}
+// return the clientCommands map.
 
 queue<string> * SymbolTable::getClientCommands() {
     return &this->clientCommands;

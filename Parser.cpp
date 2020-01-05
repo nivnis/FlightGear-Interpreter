@@ -25,7 +25,7 @@ Parser::Parser() {
     this->command_map["if"] = iff;
 }
 
-
+// getting the vector of vectors which is what the lexer returns and parse over the commands.
 void Parser::parse(vector<vector<string>> arr) {
     int index = 0;
     while (index < arr.size()) {
