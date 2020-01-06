@@ -2,7 +2,6 @@
 // Created by yuvallevy on 22/12/2019.
 //
 #include "SymbolTable.h"
-#include <iostream>
 #include <string>
 #include <unordered_map>
 #include "Var.h"

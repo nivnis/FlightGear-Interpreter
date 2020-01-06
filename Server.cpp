@@ -48,14 +48,14 @@ Server::Server(int portNumber):port(portNumber)
     }
     close(socketfd); //closing the listening socket
 }
-
+//see information in .h file
 void Server::runServerThread() {
     //open a thread on the heap and start updating the map
     thread* serverThread = new thread(&Server::runServer,this);
     serverThread->detach();
 }
 
-
+//see information in .h file
 void Server::runServer() {
     //reading from Client
     char buffer[1024];
@@ -64,6 +64,7 @@ void Server::runServer() {
     vector<float> valVector;
 
     while (true) {
+        //read from the simulator to the buffer
         int i = 0;
         int valread = read(client_socket, buffer, 1024);
         data.append(buffer, valread);
@@ -84,7 +85,7 @@ void Server::runServer() {
         }
     }
 }
-
+//see information in .h file
 vector<float> Server::getValVector(string s) {
     char delimiter = ',';
     size_t pos = 0;
@@ -98,7 +99,7 @@ vector<float> Server::getValVector(string s) {
     vector.push_back(stof(s));
     return vector;
 }
-
+//see information in .h file
 void Server::makeSimArray(){
     this->simArr[airspeed] = "/instrumentation/airspeed-indicator/indicated-speed-kt";
     this->simArr[warp] = "/sim/time/warp";
