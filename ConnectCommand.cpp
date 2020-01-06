@@ -3,7 +3,6 @@
 //
 
 #include "ConnectCommand.h"
-#include <iostream>
 #include <string>
 #include <vector>
 
@@ -16,7 +15,15 @@ int ConnectCommand:: execute(vector<vector<string>> arr, int index){
     //extracts the ip
     string ip = arr[index][1];
     //extracts the port
-    int port = stoi(arr[index][2]);
+    int port;
+    Interpreter interpreter;
+    try{
+        port = (int) interpreter.interpret(arr[index][2])->calculate();
+    }catch(char* err) {
+        port = 5402;
+    } catch(exception* ex){
+        port = 5402;
+    }
     //make a new client
     Client* client = new Client(ip, port);
     //create a thread that will keep sending data from our maps to the simulator

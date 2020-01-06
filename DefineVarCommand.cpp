@@ -5,9 +5,7 @@
 #include "DefineVarCommand.h"
 #include "SymbolTable.h"
 #include <vector>
-#include <iostream>
 #include <string>
-#include <thread>
 #include "ex1.h"
 
 using namespace std;

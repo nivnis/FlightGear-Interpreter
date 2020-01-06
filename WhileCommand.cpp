@@ -4,9 +4,7 @@
 
 #include "WhileCommand.h"
 #include <vector>
-#include <iostream>
 #include <string>
-#include "SymbolTable.h"
 #include "Parser.h"
 using namespace std;
 WhileCommand:: WhileCommand() : Command() {
